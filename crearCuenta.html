@@ -6,11 +6,42 @@
     <title>Crear Cuenta - M-Fit</title>
     <link rel="stylesheet" href="styles.css">
     <script src="validarCampos.js" defer></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.getElementById("create-account-form");
+            const emailInput = document.getElementById("email");
+            const confirmEmailInput = document.getElementById("confirm-email");
+            const passwordInput = document.getElementById("password");
+            const submitButton = document.querySelector(".submit-button");
+
+            submitButton.addEventListener("click", function (e) {
+                e.preventDefault();
+
+                // Validar que los correos coincidan y no estén vacíos
+                if (emailInput.value === "" || confirmEmailInput.value === "" || emailInput.value !== confirmEmailInput.value) {
+                    alert("Por favor, asegúrate de que ambos correos estén llenos y coincidan.");
+                    return;
+                }
+
+                // Validar la seguridad de la contraseña
+                const password = passwordInput.value;
+                const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#\$%\^&\*-])[A-Za-z\d!@#\$%\^&\*-]{8,}$/;
+
+                if (password === "" || !passwordRegex.test(password)) {
+                    alert("La contraseña no cumple con los requisitos. Debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número y un carácter especial.");
+                    return;
+                }
+
+                // Si todo es válido, redirigir a alias.html
+                window.location.href = "alias.html";
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="container">
         <div class="logo">
-            <h1><span class="m-red">M</span>-Fit</h1>
+            <h1><a href="index.html" class="logo-link"><span class="m-red">M</span>-Fit</a></h1>
         </div>
         <div class="slogan">
             <p>Creemos tu cuenta</p>
@@ -32,7 +63,7 @@
                 <p>- Debe contener <span class="highlight">un carácter especial.</span></p>
                 <p>- Debe contener <span class="highlight">al menos un número.</span></p>
             </div>
-            <button type="submit" class="submit-button">&#8594;</button>
+            <button type="button" class="submit-button">&#8594;</button>
         </form>
         <div class="footer-text">
             <p>Since 2024.</p>
